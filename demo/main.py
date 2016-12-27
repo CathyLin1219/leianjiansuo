@@ -12,20 +12,27 @@ def main():
     #global_inst.general_rank("criminalname0_372322.txt")  # 案例2
     #global_inst.general_rank("criminalname0_51504.txt")  # 案例3
     #global_inst.general_rank("criminalname0_1444427.txt")
-    global_inst.general_rank("criminalname9_603652.txt") # 故意杀人
+    #global_inst.general_rank("criminalname9_603652.txt") # 故意杀人
+    #query_cases_file = open("data/theft_cases_name.txt", 'r') # 盗窃罪
+    query_cases_file = open("data/kill_cases_name.txt", 'r')   # 故意杀人罪
+    query_cases = query_cases_file.readlines()
+    query_cases_file.close()
+    for query_case in query_cases:
+        query_case = query_case.strip()
+        global_inst.general_rank(query_case)
+
 
 def test_luc(case_name, case_desc):
     luc_inst = lucene_rank()
     cur_case_luc_cand_path = path_define.CASE_LUC_CAND_PATH_FMT % case_name
     luc_cand = utils.load_or_calc(cur_case_luc_cand_path, luc_inst.search_as_dict, case_desc)
 
+
 def test_lda(case_name, case_desc):
     lda_inst = lda_rank(path_define.LDA_MODEL_STR)
     cur_case_lda_cand_path = path_define.CASE_LDA_CAND_PATH_FMT % case_name
     lda_cand = utils.load_or_calc(cur_case_lda_cand_path, lda_inst.search_as_dict, case_desc)
 
-def test_elem():
-    pass
 
 def test_save_report(pkl_file):
     global_inst = full_rank()

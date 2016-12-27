@@ -21,15 +21,17 @@ class full_rank:
 
     def data_prepare(self, case_name):
         # 一个案件的数据准备：name, desc, crime_index
-        case_desc = self.dict_name2json[case_name]["description"]
+        case_desc = self.dict_name2json[case_name]["description"].encode("utf8")
         crime_name = self.dict_name2json[case_name]["criminal_name"]
         crime_index = defines.enum_crime_name(crime_name)
         return case_desc, crime_index
 
 
     def general_rank(self, case_name):
+        print "Search of %s begin>>>>>>" % case_name
         # 原程序
-        #case_desc, crime_index = self.data_prepare(case_name)
+        case_desc, crime_index = self.data_prepare(case_name)
+        utils.debug_log("query description:%s" % case_desc, "criminal index is %d" % crime_index)
         # 案例1
         """case_desc = "公诉 机关 指控 ： 2015年 7月 2日 9时 21 分 许 ， 被告人 徐 先 水 在 本市 上 \
         城区 大学路 新村 25 幢 水果 店 附近 ， 用 一 只 手 提 编织袋 作 掩护 ， 趁 被害人 顾某 不 备 ， \
@@ -48,11 +50,11 @@ class full_rank:
 
 
         # criminalname9_603652.txt 故意杀人
-        case_desc = "2014年 春天 ， 被告人 周风月 酒后 以 捉奸 为由 爬梯子 翻墙 进入 侄子 周某 甲 家中 ， 为此 ， 周某 甲 妻子 杨某甲 召集 当家户族 和 娘家 人 杨某乙 等 人 教训 了 周风月 ， 之后 两 家 再 无 来往 2015年 1月 8日 晚 10时 许 ， 周风月 返回 家中拿 了 一 把 单刃 尖刀 到 周某 甲家街 门口 ， 用 刀 将 杨某 乙 小车 的 四 个 轮胎 戳 破  周某甲 和 出来 后 责骂 周风月 ， 并 冲 到 跟前 在 其 左 腮部 捣 了 一 拳 ， 周风 月 将 周某甲 和 左肩部 捅 了 一 刀 ， 周某甲 和 随即 打电话 报警 杨某甲 出门 后 也 责骂 周风 月 不 该 扎胎 ， 周风月 冲 到 杨某 甲 跟前 ， 左手 抱 住 杨某 甲右 肩膀 ， 右手 持 刀 在 其 左 肋部 、 左 胳膊 、 左肩部 、 左胸部 等 部位 连 捅 七 刀 随后 周某甲 、 周某丁 将 周风月 按 倒 在 地 ， 把 匕首 从 其 手中 抢走 ， 王 某某 、 周某甲 、 周某乙 、 杨某甲 围住 殴打 周风月 之后 杨某 甲 、 周某甲 和 被 送 往 民乐县 人民 医院 抢救 周风月 则 返回 家中 又 提 着 菜刀 到 周某 甲家街 门口 ， 因 街门 已 被 周某 戊朝 里 锁 住 ， 周风月 踢 了 一阵 就 将 杨某 乙 轿车 前后 挡风 玻璃 用 菜刀 打碎 ， 随后 用 菜刀 在 自己 脖子 抹 了 两 刀 企图 自杀 ， 但 被 赶到 现场 的 民警 当场 抓获 ， 并 送 民乐县 人民 医院 抢救 经 法医 鉴定 ， 被害人 杨某甲 的 损伤 程度 属 重伤 二级 ， 被害人 周某 甲和 的 损伤 程度 属 轻微伤 ， 被告人 周风月 颈部 的 损伤 程度 属 轻伤 二级 认定"
-        crime_index = 8
+        #case_desc = "2014年 春天 ， 被告人 周风月 酒后 以 捉奸 为由 爬梯子 翻墙 进入 侄子 周某 甲 家中 ， 为此 ， 周某 甲 妻子 杨某甲 召集 当家户族 和 娘家 人 杨某乙 等 人 教训 了 周风月 ， 之后 两 家 再 无 来往 2015年 1月 8日 晚 10时 许 ， 周风月 返回 家中拿 了 一 把 单刃 尖刀 到 周某 甲家街 门口 ， 用 刀 将 杨某 乙 小车 的 四 个 轮胎 戳 破  周某甲 和 出来 后 责骂 周风月 ， 并 冲 到 跟前 在 其 左 腮部 捣 了 一 拳 ， 周风 月 将 周某甲 和 左肩部 捅 了 一 刀 ， 周某甲 和 随即 打电话 报警 杨某甲 出门 后 也 责骂 周风 月 不 该 扎胎 ， 周风月 冲 到 杨某 甲 跟前 ， 左手 抱 住 杨某 甲右 肩膀 ， 右手 持 刀 在 其 左 肋部 、 左 胳膊 、 左肩部 、 左胸部 等 部位 连 捅 七 刀 随后 周某甲 、 周某丁 将 周风月 按 倒 在 地 ， 把 匕首 从 其 手中 抢走 ， 王 某某 、 周某甲 、 周某乙 、 杨某甲 围住 殴打 周风月 之后 杨某 甲 、 周某甲 和 被 送 往 民乐县 人民 医院 抢救 周风月 则 返回 家中 又 提 着 菜刀 到 周某 甲家街 门口 ， 因 街门 已 被 周某 戊朝 里 锁 住 ， 周风月 踢 了 一阵 就 将 杨某 乙 轿车 前后 挡风 玻璃 用 菜刀 打碎 ， 随后 用 菜刀 在 自己 脖子 抹 了 两 刀 企图 自杀 ， 但 被 赶到 现场 的 民警 当场 抓获 ， 并 送 民乐县 人民 医院 抢救 经 法医 鉴定 ， 被害人 杨某甲 的 损伤 程度 属 重伤 二级 ， 被害人 周某 甲和 的 损伤 程度 属 轻微伤 ， 被告人 周风月 颈部 的 损伤 程度 属 轻伤 二级 认定"
+        #crime_index = 8
 
         # get lucene result
-        top_n = 100
+        top_n = 1000
         cur_case_luc_cand_path = path_define.CASE_LUC_CAND_PATH_FMT % (case_name, top_n)
         luc_cand = utils.load_or_calc(cur_case_luc_cand_path, self.luc_inst.search_as_dict, case_desc, top_n)
         if case_name in luc_cand:
@@ -62,7 +64,7 @@ class full_rank:
         utils.debug_log("lucene cand: ", luc_cand)
 
         # get lda result
-        top_n = 100
+        top_n = 1000
         cur_case_lda_cand_path = path_define.CASE_LDA_CAND_PATH_FMT % (case_name, top_n)
         lda_cand = utils.load_or_calc(cur_case_lda_cand_path, self.lda_inst.search_as_dict, case_desc, top_n)
         if case_name in lda_cand:
@@ -86,14 +88,27 @@ class full_rank:
         judg_cand = utils.load_or_calc(cur_case_judg_cand_path, self.judg_inst.search_as_dict,
                                        case_name, uni_list)
 
+        # 加权求和
         feature_weight = [0.1, 0.1, 0.4, 0.4]
         score_sum_list = self.weighted_sum(luc_cand, lda_cand, elem_cand, judg_cand,
                                            full_name_list=uni_list, weights_list=feature_weight)
         rank_pairs = self.sort_score(uni_list, score_sum_list)
+
+
+        # # 附加操作
+        # 1.统计来源
+        result_handle.analyze_luc_vs_lda(luc_cand, lda_cand, rank_pairs)
+        # 2.生成人工评级的文本
+        result_handle.save_for_human_rating(case_name, rank_pairs, 30)
+
+        # 保存结果，文件名及得分
         general_result_path = path_define.CASE_GENERAL_CAND_PATH_FMT % (case_name, len(uni_list),
                                                                         '_'.join(map(str, feature_weight)))
         utils.dump_pyobj(rank_pairs, general_result_path)
-        self.save_rst(general_result_path)
+        save_final_path = path_define.CASE_GENERAL_CAND_LIST_PATH_FMT % (case_name, len(uni_list),
+                                                                         '_'.join(map(str, feature_weight)))
+        result_handle.save_rst_list(rank_pairs, save_final_path)
+        # self.save_rst(general_result_path)
         print rank_pairs[:10]
 
 

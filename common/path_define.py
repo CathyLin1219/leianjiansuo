@@ -13,3 +13,5 @@ sample_name_filename = "out_name.dat"
 LDA_MODEL_SAMPLE_NAME_FILE = "data/lda-model-input-54w-names.dat"
 DATA_DIR = "data/"
 CASE_GENERAL_CAND_PATH_FMT = "data/%s_gnr_cand_on%d_%s.pkl"  # casename, weights
+CASE_GENERAL_CAND_LIST_PATH_FMT = "data/%s_gnr_cand_list_on%d_%s.txt"
+HUMAN_RATING_PATH_FMT = "data/%s_top%d.csv"

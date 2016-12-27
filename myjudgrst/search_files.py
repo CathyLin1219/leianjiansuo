@@ -20,6 +20,8 @@ class judge_rank:
         return rst_dict
 
     def get_judge(self, filename):
+        if filename not in self.dict_name2json:
+            return -1, -1, -1
         cri_index = defines.enum_crime_name(self.dict_name2json[filename]["criminal_name"])
         sent_time = self.dict_name2json[filename]["sentenced_time"]
         money = self.dict_name2json[filename]["money"]
@@ -42,12 +44,12 @@ class judge_rank:
             return score
         # 刑期
         if query_rst[1] != 0:
-            score += 30.0 * (1.0 - float(abs(query_rst[1] - doc_rst[1])) / query_rst[1])
+            score += 30.0 / (1.0 + float(abs(query_rst[1] - doc_rst[1])) / query_rst[1])
         elif doc_rst[1] == 0:
             score += 30.0
         # 罚金
         if query_rst[2] != 0:
-            score += 20.0 * (1.0 - float(abs(query_rst[2] - doc_rst[2])) / query_rst[2])
+            score += 20.0 / (1.0 + float(abs(query_rst[2] - doc_rst[2])) / query_rst[2])
         elif doc_rst[2] == 0:
             score += 20.0
         return score

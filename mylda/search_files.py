@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding=utf8
 
-import sys, os.path, subprocess
+import os, subprocess, glob
 from datetime import datetime
 import numpy as np
 import numpy.linalg as la
@@ -51,7 +51,11 @@ class lda_rank:
         inf_theta_file = open(inf_theta_filename, 'r')
         inf_theta = inf_theta_file.readline()
         inf_theta_file.close()
-        return  inf_theta
+        # remove other inf files(xxx.phi, xxx.others, et)
+        inf_file_pattern = inf_file_name + '.' + self.model_str + '.*'
+        for tmp_file_name in glob.glob(inf_file_pattern):
+            os.remove(tmp_file_name)
+        return inf_theta
 
     def calc_score(self, new_doc_theta):
         """
@@ -62,7 +66,7 @@ class lda_rank:
         """
         # 构造data1, 1*K 向量，new_doc_dtb is jgibblda -inf 生成的theta值, one doc distribution of k topics
         vec1 = map(float, new_doc_theta.split())
-        print len(vec1)
+        utils.debug_log("length of newdoc vector(topics): %d" % len(vec1))
         data1 = np.array(vec1)
         # 逐个doc比较求欧氏距离
         result = la.norm(data1 - self.data2, axis=1)

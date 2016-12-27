@@ -51,15 +51,19 @@ def normalize_score(name_score_dict, prop=True):
     """
     if prop:
         max_value = max(name_score_dict.values())
-        factor = 100.0 / max_value
-    else:
-        min_value = min(name_score_dict.values())
-        factor = 100.0 * min_value
+        # 防止除数为0
+        if max_value == 0:
+            return name_score_dict
+        prop_factor = 100.0 / max_value
+
     for name in name_score_dict:
         if prop:
-            name_score_dict[name] = name_score_dict[name] * factor
+            name_score_dict[name] = name_score_dict[name] * prop_factor
         else:
-            name_score_dict[name] = factor / name_score_dict[name]
+            name_score_dict[name] = 1.0 / (1.0 + name_score_dict[name])
+
+    if not prop:
+        normalize_score(name_score_dict, True)
     return name_score_dict
 
 
@@ -73,5 +77,6 @@ def get_md5(txt):
 def debug_log(*args, **kwargs):
     if defines.DEBUG:
         print "=====", args, kwargs
+
 
 

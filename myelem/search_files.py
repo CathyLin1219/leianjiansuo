@@ -12,7 +12,7 @@ class elem_analysis:
 
     def analysis_query_text(self, file_name, crime_index):
         f = open(path_define.CRIMINAL_DIR + file_name)
-        text = f.read() #.decode('utf8')
+        text = f.read()
         f.close()
         crime_pattern_list = patterns.sp_pattern_dict[defines.crime_list[crime_index]]
         cur_ptlist = crime_pattern_list + patterns.com_pattern_list
