@@ -15,3 +15,5 @@ DATA_DIR = "data/"
 CASE_GENERAL_CAND_PATH_FMT = "data/%s_gnr_cand_on%d_%s.pkl"  # casename, weights
 CASE_GENERAL_CAND_LIST_PATH_FMT = "data/%s_gnr_cand_list_on%d_%s.txt"
 HUMAN_RATING_PATH_FMT = "data/%s_top%d.csv"
+
+CASE_INDIV_CLASS_DIR = "/home/gwlin/extend/dev/data-process/data/classify_1201/"
