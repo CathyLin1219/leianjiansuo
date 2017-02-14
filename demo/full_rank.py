@@ -6,6 +6,7 @@ from mylucene.search_files import lucene_rank
 from mylda.search_files import lda_rank
 from myelem.search_files import elem_rank
 from myjudgrst.search_files import judge_rank
+from myother.search_files import similar_class_crime
 import numpy as np
 
 class full_rank:
@@ -17,6 +18,7 @@ class full_rank:
         self.lda_inst = lda_rank(path_define.LDA_MODEL_STR)
         self.elem_inst = elem_rank()
         self.judg_inst = judge_rank(self.dict_name2json)
+        self.sim_inst = similar_class_crime()
 
 
     def data_prepare(self, case_name):
@@ -54,7 +56,7 @@ class full_rank:
         #crime_index = 8
 
         # get lucene result
-        top_n = 1000
+        top_n = 5000
         cur_case_luc_cand_path = path_define.CASE_LUC_CAND_PATH_FMT % (case_name, top_n)
         luc_cand = utils.load_or_calc(cur_case_luc_cand_path, self.luc_inst.search_as_dict, case_desc, top_n)
         if case_name in luc_cand:
@@ -64,7 +66,7 @@ class full_rank:
         utils.debug_log("lucene cand: ", luc_cand)
 
         # get lda result
-        top_n = 1000
+        top_n = 5000
         cur_case_lda_cand_path = path_define.CASE_LDA_CAND_PATH_FMT % (case_name, top_n)
         lda_cand = utils.load_or_calc(cur_case_lda_cand_path, self.lda_inst.search_as_dict, case_desc, top_n)
         if case_name in lda_cand:
@@ -73,9 +75,15 @@ class full_rank:
         utils.debug_log("lda search done!")
         utils.debug_log("lda cand: ", lda_cand)
 
-        # union of lucene + lda
-        uni_list = list(set(luc_cand.keys()).union(set(lda_cand.keys())))
+        # get random_of_similar_crime, tpye is list
+        sim_cand = self.sim_inst.random_get_similar_cases(crime_index, 5000)
+
+        # union of lucene + lda + random_of_similar_crime
+        uni_list = list(set(luc_cand.keys()).union(set(lda_cand.keys())).union(set(sim_cand)))
         utils.debug_log("lucene + lda union size = ", len(uni_list))
+
+        # 对于基本候选集进行附加操作
+        self.accessory_process(uni_list, crime_index)
 
         # calc element result
         cur_case_elem_cand_path = path_define.CASE_ELEM_CAND_PATH_FMT % (case_name, len(uni_list))
@@ -154,3 +162,24 @@ class full_rank:
 
     def save_rst(self, rst_pkl):
         result_handle.save_rst_report(rst_pkl, self.dict_name2json)
+
+    def accessory_process(self, cand_list, crime_index = -1):
+        '''
+        1. 过滤非相近罪名案例
+        :param cand_list:
+        :param crime_index:
+        :return:
+        '''
+        # 过滤非相近罪名
+        if crime_index in defines.confused_crime.keys():
+            sim_crim_set = set(defines.confused_crime[crime_index] + [crime_index])
+            i = 0
+            while i < len(cand_list):
+                case_name = cand_list[i]
+                if case_name in self.dict_name2json:
+                    cur_index = defines.enum_crime_name(self.dict_name2json[case_name]["criminal_name"])
+                    if cur_index in sim_crim_set:
+                        i += 1
+                        continue
+                del cand_list[i]
+
