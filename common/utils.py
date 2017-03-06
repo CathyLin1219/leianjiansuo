@@ -2,7 +2,7 @@
 
 import pickle, os, json, hashlib
 import defines
-
+import numpy as np
 
 def dump_pyobj(pyobj, filename):
     if filename.strip() != '':
@@ -51,21 +51,35 @@ def normalize_score(name_score_dict, prop=True):
     """
     if prop:
         max_value = max(name_score_dict.values())
-        # 防止除数为0
-        if max_value == 0:
-            return name_score_dict
-        prop_factor = 100.0 / max_value
+        min_value = min(name_score_dict.values())
 
-    for name in name_score_dict:
-        if prop:
-            name_score_dict[name] = name_score_dict[name] * prop_factor
-        else:
+        for name in name_score_dict:
+            if (max_value - min_value) == 0:
+                name_score_dict[name] = 1
+            else:
+                name_score_dict[name] = (name_score_dict[name] - min_value) / (max_value - min_value)
+    else:
+        for name in name_score_dict:
             name_score_dict[name] = 1.0 / (1.0 + name_score_dict[name])
-
-    if not prop:
         normalize_score(name_score_dict, True)
     return name_score_dict
 
+def max_min_normalization(arr, prop=True):
+    '''
+    (0,1) 标准化
+    :param arr: 一维 numpy array
+    :param prop:true 正比， false 反比
+    :return:
+    '''
+    arr = np.asfarray(arr)
+    if prop:
+        max_val = np.max(arr)
+        min_val = np.min(arr)
+        arr = (arr - min_val) / (max_val - min_val)
+        return arr
+    else:
+        arr = 1.0 / (1.0 + arr)
+        return max_min_normalization(arr, True)
 
 def get_md5(txt):
     md5_obj = hashlib.md5()

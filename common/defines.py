@@ -1,5 +1,14 @@
 # coding=UTF-8
-DEBUG = True
+DEBUG = False
+FLAG_LDA = False
+FLAG_ELEM = True
+FLAG_JUDG = False
+LUCENE_RATE = 0.5
+LDA_RATE = 0.0
+ELEM_RATE = 0.5
+JUDG_RATE = 0.0
+
+
 crime_list = ['theft', 'fraud', 'drug', 'driving', 'robbery', 'injure', 'traffic', 'keepdrug', 'kill', 'trouble']
 
 
