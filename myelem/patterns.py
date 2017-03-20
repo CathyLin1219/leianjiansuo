@@ -65,9 +65,9 @@ com_pattern_dict = {u'再犯|有前科|惯犯': 4,
                     u'坦白|当庭认罪|自愿认罪|无异议|不持异议|没有异议|供认不讳': 2,
                     u'如实供述': 2}
 
-sp_pattern_dict = {}
-sp_num_pattern_dict = {}
-sp_pattern_dict['theft'] = {u'入室|入户|撬锁|翻窗|爬窗户|爬窗|撬门': 5,
+crime_pattern_dict = {}
+crime_num_pattern_dict = {}
+crime_pattern_dict['theft'] = {u'入室|入户|撬锁|翻窗|爬窗户|爬窗|撬门': 5,
                             u'扒窃': 5,
                             u'医院盗窃': 5,
                             u'盗窃救灾款': 5,
@@ -76,14 +76,58 @@ sp_pattern_dict['theft'] = {u'入室|入户|撬锁|翻窗|爬窗户|爬窗|撬�
                             u'多次.{0,10}盗窃|多次.{0,10}窃取': 5}
 
 
-sp_num_pattern_dict['theft'] = {'money': 30,
-                                }
+crime_num_pattern_dict['theft'] = {'money': 30,
+                                   }
 
 
-sp_pattern_dict['kill'] = {u'杀死母亲|杀死父亲|抛尸|手段残忍|杀死儿子|杀死女儿|杀死孩子': 3,
+crime_pattern_dict['kill'] = {u'杀死母亲|杀死父亲|抛尸|手段残忍|杀死儿子|杀死女儿|杀死孩子': 3,
                            u'激情杀人|义愤杀人': 5,
                            u'防卫过当': 5,
                            u'助人自杀': 5}
 
-sp_num_pattern_dict['kill'] = {'death_count': 30,
+crime_num_pattern_dict['kill'] = {'death_count': 30,
                                'injure_count': 30}
+
+
+sp_pattern_dict = {}
+sp_pattern_dict['theft'] = [u'入室|入户|撬锁|翻窗|爬窗户|爬窗|撬门', u'扒窃', u'医院盗窃', u'盗窃救灾款',
+                            u'退赃|退赔|归还|退回部分赃款|退回全部赃款|退回部分赃款|赃款返还|追回发还|追回并发还|已发还|并发还',
+                            u'持刀|器械|凶器']
+sp_pattern_dict['theft'].extend(pattern_dict['money'])
+sp_pattern_dict['theft'].extend(pattern_dict['count'])
+
+sp_pattern_dict['kill'] = [u'杀死母亲|杀死父亲|抛尸|手段残忍|杀死儿子|杀死女儿|杀死孩子', u'激情杀人|义愤杀人',
+                           u'防卫过当', u'助人自杀']
+
+sp_pattern_dict['fraud'] = [u'退赃|退赔|归还|退回部分赃款|退回全部赃款|退回部分赃款|赃款返还|追回发还|追回并发还|已发还|并发还',]
+sp_pattern_dict['fraud'].extend(pattern_dict['money'])
+sp_pattern_dict['fraud'].extend(pattern_dict['count'])
+
+sp_pattern_dict['drug'] = [u'鸦片', u'海洛因', u'甲基苯丙胺|冰毒', u'吗啡|大麻|可卡因|毒品']
+sp_pattern_dict['drug'].extend(pattern_dict['weight'])
+sp_pattern_dict['drug'].extend(pattern_dict['count'])
+
+sp_pattern_dict['driving'] = [u'醉酒|酒精含量', u'无证|无驾驶资格', u'无照|无牌照|没有牌照',
+                              u'轻微伤', u'轻伤', u'重伤', u'车受损|车辆受损', u'超载', u'超速',
+                              u'追逐|竞驶', u'全部责任', u'主要责任', u'次要责任', u'运输危险']
+
+sp_pattern_dict['robbery'] = [u'轻微伤', u'轻伤', u'重伤',u'死亡', u'持刀|器械|凶器', u'持枪',
+                              u'入室|入户|撬锁|翻窗|爬窗户|爬窗|撬门', '公共交通|公交车',u'银行',
+                              u'金融机构', u'冒充军警', u'救灾|赈灾', u'军用物资',
+                              u'退赃|退赔|归还|退回部分赃款|退回全部赃款|退回部分赃款|赃款返还|追回发还|追回并发还|已发还|并发还',]
+sp_pattern_dict['robbery'].extend(pattern_dict['count'])
+sp_pattern_dict['robbery'].extend(pattern_dict['money'])
+sp_pattern_dict['robbery'].extend(pattern_dict['person_count'])
+
+sp_pattern_dict['injure'] = [u'轻微伤', u'轻伤', u'重伤',u'导致伤残|导致残疾', u'器官', u'雇佣他人',
+                             u'积极抢救',u'凶器|持刀', u'防卫过当', u'残忍', u'被害人有过错']
+sp_pattern_dict['traffic'] = [u'重伤',u'死亡', u'逃逸', u'逃逸致死', u'全部责任', u'主要责任', u'次要责任',]
+sp_pattern_dict['traffic'].extend(pattern_dict['person_count'])
+
+sp_pattern_dict['keepdrug'] = [u'严重后果', u'牟利', u'容留未成年']
+sp_pattern_dict['keepdrug'].extend(pattern_dict['person_count'])
+sp_pattern_dict['keepdrug'].extend(pattern_dict['count'])
+
+sp_pattern_dict['trouble'] = [u'轻微伤', u'轻伤', u'重伤',]
+sp_pattern_dict['trouble'].extend(pattern_dict['money'])
+sp_pattern_dict['trouble'].extend(pattern_dict['person_count'])
