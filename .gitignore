@@ -1,0 +1,9 @@
+*.pyc
+*.txt
+data
+.idea
+*.out
+*.log
+*.result
+*.output
+

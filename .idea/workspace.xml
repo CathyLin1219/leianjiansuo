@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5cc93a17-f1c0-4cae-b717-7abe652ae537" name="Default" comment="要素的评价方法进行细化，主要添加“杀人”与“盗窃”的要素及其得分值。按照罪名分类检查并计算检索文书及候选文书的">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/demo/unit_test.py" />
+    <list default="true" id="5cc93a17-f1c0-4cae-b717-7abe652ae537" name="Default" comment="相似案例统计刑期和罚金的均值和方差，单独写的程序，基于已经得到[(case_name1 score1), (case_name2,score2),...], 结果打印到屏幕">
       <change type="DELETED" beforePath="$PROJECT_DIR$/data/IndexFiles_miaoshu.index" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/data/IndexFiles_wenshu.index" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/data/criminalname0_1444427.txt_elem_cand.pkl" afterPath="" />
@@ -47,14 +46,13 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/data/temp_inf_20161216094742692011.dat.model-final-miaoshu-54w-50t-2klt.tassign" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/data/temp_inf_20161216094742692011.dat.model-final-miaoshu-54w-50t-2klt.theta" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/data/temp_inf_20161216094742692011.dat.model-final-miaoshu-54w-50t-2klt.twords" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/demo/full_rank.py" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/lda-model-input-54w.dat" afterPath="$PROJECT_DIR$/data/lda-model-input-54w.dat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/model-final-miaoshu-54w-50t-2klt.phi" afterPath="$PROJECT_DIR$/data/model-final-miaoshu-54w-50t-2klt.phi" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/model-final-miaoshu-54w-50t-2klt.tassign" afterPath="$PROJECT_DIR$/data/model-final-miaoshu-54w-50t-2klt.tassign" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/model-final-miaoshu-54w-50t-2klt.theta" afterPath="$PROJECT_DIR$/data/model-final-miaoshu-54w-50t-2klt.theta" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/leianjiansuo.iml" afterPath="$PROJECT_DIR$/.idea/leianjiansuo.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common/defines.py" afterPath="$PROJECT_DIR$/common/defines.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/criminal_data_1201.txt" afterPath="$PROJECT_DIR$/data/criminal_data_1201.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/criminalname9_603652.txt_gnr_cand_on196_0.1_0.1_0.5_0.3.pkl" afterPath="$PROJECT_DIR$/data/criminalname9_603652.txt_gnr_cand_on196_0.1_0.1_0.5_0.3.pkl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/criminalname9_603652.txt_gnr_cand_on196_0.1_0.1_0.5_0.3.pkl_report.txt" afterPath="$PROJECT_DIR$/data/criminalname9_603652.txt_gnr_cand_on196_0.1_0.1_0.5_0.3.pkl_report.txt" />
@@ -62,7 +60,6 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/lda-model-input-54w-names.dat" afterPath="$PROJECT_DIR$/data/lda-model-input-54w-names.dat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/model-final-miaoshu-54w-50t-2klt.others" afterPath="$PROJECT_DIR$/data/model-final-miaoshu-54w-50t-2klt.others" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/data/wordmap.txt" afterPath="$PROJECT_DIR$/data/wordmap.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/main.py" afterPath="$PROJECT_DIR$/demo/main.py" />
     </list>
     <ignored path="leianjiansuo.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -85,8 +82,8 @@
       <file leaf-file-name="full_rank.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/full_rank.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+            <state relative-caret-position="2280">
+              <caret line="128" column="57" selection-start-line="126" selection-start-column="8" selection-end-line="128" selection-end-column="57" />
               <folding>
                 <element signature="e#16#38#0" expanded="true" />
               </folding>
@@ -94,46 +91,44 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="search_files.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/myelem/search_files.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="162" column="28" selection-start-line="162" selection-start-column="22" selection-end-line="162" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="result_handle.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/result_handle.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="16" column="39" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+            <state relative-caret-position="190">
+              <caret line="15" column="63" selection-start-line="15" selection-start-column="63" selection-end-line="15" selection-end-column="63" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="temp_test.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/demo/temp_test.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="114">
+              <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1026">
+              <caret line="56" column="44" selection-start-line="56" selection-start-column="44" selection-end-line="56" selection-end-column="44" />
               <folding>
-                <element signature="e#14#45#0" expanded="true" />
+                <element signature="e#16#48#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="search_files.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/myother/search_files.py">
+      <file leaf-file-name="const_data.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/common/const_data.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="19" column="55" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
-              <folding>
-                <element signature="e#16#29#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="247">
+              <caret line="13" column="58" selection-start-line="13" selection-start-column="58" selection-end-line="13" selection-end-column="58" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -141,9 +136,21 @@
       <file leaf-file-name="defines.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common/defines.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="722">
-              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+            <state relative-caret-position="399">
+              <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="calc_measure.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/demo/calc_measure.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="446">
+              <caret line="83" column="39" selection-start-line="83" selection-start-column="39" selection-end-line="83" selection-end-column="39" />
+              <folding>
+                <element signature="e#42#56#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -151,8 +158,8 @@
       <file leaf-file-name="path_define.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common/path_define.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="18" column="50" selection-start-line="18" selection-start-column="50" selection-end-line="18" selection-end-column="50" />
+            <state relative-caret-position="285">
+              <caret line="15" column="59" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="59" />
               <folding />
             </state>
           </provider>
@@ -160,25 +167,53 @@
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/common/path_define.py" />
         <option value="$PROJECT_DIR$/myother/search_files.py" />
-        <option value="$PROJECT_DIR$/common/defines.py" />
-        <option value="$PROJECT_DIR$/demo/full_rank.py" />
         <option value="$PROJECT_DIR$/demo/main.py" />
+        <option value="$PROJECT_DIR$/demo/unit_test.py" />
+        <option value="$PROJECT_DIR$/mylucene/search_files.py" />
+        <option value="$PROJECT_DIR$/demo/temp_test.py" />
+        <option value="$PROJECT_DIR$/common/static_data.py" />
+        <option value="$PROJECT_DIR$/demo/xls_parser.py" />
+        <option value="$PROJECT_DIR$/myother/nearby_court.py" />
+        <option value="$PROJECT_DIR$/../leian-demo/law/urls.py" />
+        <option value="$PROJECT_DIR$/../leian-demo/law/views.py" />
+        <option value="$PROJECT_DIR$/../leian-demo/law/nearby_court.py" />
+        <option value="$PROJECT_DIR$/../leian-demo/law/rank.py" />
+        <option value="$PROJECT_DIR$/../leian-demo/law/SearchFiles.py" />
+        <option value="$PROJECT_DIR$/common/measures.py" />
+        <option value="$PROJECT_DIR$/common/const_data.py" />
+        <option value="$PROJECT_DIR$/../leian-demo/law/retrieval/SearchFiles.py" />
+        <option value="$PROJECT_DIR$/common/metric.py" />
+        <option value="$PROJECT_DIR$/common/xls_parser.py" />
+        <option value="$PROJECT_DIR$/common/path_define.py" />
+        <option value="$PROJECT_DIR$/myelem/patterns.py" />
+        <option value="$PROJECT_DIR$/myelem/search_files.py" />
+        <option value="$PROJECT_DIR$/common/utils.py" />
+        <option value="$PROJECT_DIR$/demo/full_rank.py" />
+        <option value="$PROJECT_DIR$/common/defines.py" />
+        <option value="$PROJECT_DIR$/common/result_handle.py" />
+        <option value="$PROJECT_DIR$/demo/calc_measure.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1" />
-    <option name="y" value="40" />
-    <option name="width" value="1364" />
-    <option name="height" value="728" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1096" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -205,7 +240,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -235,6 +269,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="myother" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="leianjiansuo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="leianjiansuo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mylucene" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -282,14 +330,74 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../criminal-demo" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="Z:\dev\leianjiansuo\common" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python.calc_measure">
+    <configuration default="false" name="Doctests in metric" type="tests" factoryName="Doctests" temporary="true" nameIsGenerated="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/common" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="leianjiansuo" />
+      <option name="SCRIPT_NAME" value="Z:\dev\leianjiansuo\common\metric.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="calc_measure" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/demo" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="leianjiansuo" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo/calc_measure.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="xls_parser" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/demo" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="leianjiansuo" />
+      <option name="SCRIPT_NAME" value="Z:\dev\leianjiansuo\common\xls_parser.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -424,6 +532,18 @@
       <option name="USE_KEYWORD" value="false" />
       <method />
     </configuration>
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="Python tests.Doctests in metric" />
+      <item index="1" class="java.lang.String" itemvalue="Python.calc_measure" />
+      <item index="2" class="java.lang.String" itemvalue="Python.xls_parser" />
+    </list>
+    <recent_temporary>
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="Python.calc_measure" />
+        <item index="1" class="java.lang.String" itemvalue="Python.xls_parser" />
+        <item index="2" class="java.lang.String" itemvalue="Python tests.Doctests in metric" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -457,22 +577,118 @@
       <option name="project" value="LOCAL" />
       <updated>1487039989989</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="20170210版本测试集程序。1.Lucene top5k + LDA Top5k + 类似罪名随机 5k = 并集， 2.过滤非类似罪名的文书；3.要素和判决结果评分；4.加权求值0.1,0.1,0.4,0.4；5.排序">
+      <created>1487040452084</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1487040452084</updated>
+    </task>
+    <task id="LOCAL-00005" summary="评价指标metric，DCG@K, NDCG@K">
+      <created>1488442777939</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1488442777939</updated>
+    </task>
+    <task id="LOCAL-00006" summary="pkufb的部分评级数据；解析人工评级xls文件">
+      <created>1488448119038</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1488448119038</updated>
+    </task>
+    <task id="LOCAL-00007" summary="单独计算指标的程序（pkufb、已有xls数据）">
+      <created>1488452387157</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1488452387157</updated>
+    </task>
+    <task id="LOCAL-00008" summary="法院信息对比，同法院评分最高，上级有交集其次，上上级再次，其他情况评分最低；逻辑判断比较low，待改进。TODO">
+      <created>1488452754868</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1488452754868</updated>
+    </task>
+    <task id="LOCAL-00009" summary="随机获取相似罪名案例，前提是有分好类的各个罪名的案例。">
+      <created>1488452849838</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1488452849838</updated>
+    </task>
+    <task id="LOCAL-00010" summary="1.增加各特征的开关及权重参数；2.增加对应测试集的结果；3.添加min-max的归一化">
+      <created>1488769232971</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1488769232971</updated>
+    </task>
+    <task id="LOCAL-00011" summary="独立程序，相似案例统计刑期和罚金的均值和方差，基于已经得到[(case_name1 score1), (case_name2,score2),...] 的pkl数据, 统计结果打印到屏幕">
+      <created>1489996268075</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1489996268075</updated>
+    </task>
+    <task id="LOCAL-00012" summary="添加各种特征的开关，开关参数写在define中">
+      <created>1489996352469</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1489996352469</updated>
+    </task>
+    <task id="LOCAL-00013" summary="修改要素特征的计算方法，按要素有无的个数，借鉴F值计算公式作为特征值；添加其他罪名的一些要素匹配pattern，对应使用的是基于要素个数的特征计算方法。">
+      <created>1489996577681</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1489996577681</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="Doctests_in_measures - 2017.02.15 at 16h 08m 32s.xml">
+      <configuration name="Doctests in measures" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_measures - 2017.02.15 at 16h 12m 34s.xml">
+      <configuration name="Doctests in measures" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_measures - 2017.02.15 at 16h 12m 47s.xml">
+      <configuration name="Doctests in measures" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_measures - 2017.02.15 at 16h 13m 17s.xml">
+      <configuration name="Doctests in measures" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_measures - 2017.02.15 at 16h 13m 53s.xml">
+      <configuration name="Doctests in measures" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_measures - 2017.02.15 at 16h 14m 04s.xml">
+      <configuration name="Doctests in measures" configurationId="tests" />
+    </history-entry>
+    <history-entry file="Doctests_in_measures - 2017.02.16 at 10h 49m 08s.xml">
+      <configuration name="Doctests in measures" configurationId="tests" />
+    </history-entry>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="1" y="40" width="1364" height="728" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15727003" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12486828" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32917964" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3296146" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329429" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15327695" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22555205" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -487,16 +703,152 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="false" />
     <MESSAGE value="要素的评价方法进行细化，主要添加“杀人”与“盗窃”的要素及其得分值。按照罪名检查并计算检索文书及候选文书的各要素得分，用欧氏距离作为相似度打分" />
     <MESSAGE value="从相似罪名的文书中随机选择一定量的文书" />
     <MESSAGE value="更新一些路径定义，数字识别" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新一些路径定义，数字识别" />
+    <MESSAGE value="20170210版本测试集程序。1.Lucene top5k + LDA Top5k + 类似罪名随机 5k = 并集， 2.过滤非类似罪名的文书；3.要素和判决结果评分；4.加权求值0.1,0.1,0.4,0.4；5.排序" />
+    <MESSAGE value="评价指标metric，DCG@K, NDCG@K" />
+    <MESSAGE value="pkufb的部分评级数据；解析人工评级xls文件" />
+    <MESSAGE value="单独计算指标的程序（pkufb、已有xls数据）" />
+    <MESSAGE value="法院信息对比，同法院评分最高，上级有交集其次，上上级再次，其他情况评分最低；逻辑判断比较low，待改进。TODO" />
+    <MESSAGE value="随机获取相似罪名案例，前提是有分好类的各个罪名的案例。" />
+    <MESSAGE value="1.增加各特征的开关及权重参数；2.增加对应测试集的结果；3.添加min-max的归一化" />
+    <MESSAGE value="独立程序，相似案例统计刑期和罚金的均值和方差，基于已经得到[(case_name1 score1), (case_name2,score2),...] 的pkl数据, 统计结果打印到屏幕" />
+    <MESSAGE value="添加各种特征的开关，开关参数写在define中" />
+    <MESSAGE value="修改要素特征的计算方法，按要素有无的个数，借鉴F值计算公式作为特征值；添加其他罪名的一些要素匹配pattern，对应使用的是基于要素个数的特征计算方法。" />
+    <option name="LAST_COMMIT_MESSAGE" value="修改要素特征的计算方法，按要素有无的个数，借鉴F值计算公式作为特征值；添加其他罪名的一些要素匹配pattern，对应使用的是基于要素个数的特征计算方法。" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/common/metric.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="950">
+          <caret line="50" column="41" selection-start-line="50" selection-start-column="41" selection-end-line="50" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/calc_measure.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/xls_parser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="304">
+          <caret line="17" column="19" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/defines.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="722">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/const_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/result_handle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="13" column="24" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="95">
+          <caret line="10" column="4" selection-start-line="10" selection-start-column="4" selection-end-line="10" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mylucene/search_files.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1045">
+          <caret line="63" column="12" selection-start-line="63" selection-start-column="12" selection-end-line="63" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/full_rank.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#16#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/temp_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="152">
+          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/full_rank.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#16#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myelem/search_files.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2717">
+          <caret line="147" column="47" selection-start-line="147" selection-start-column="47" selection-end-line="147" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/result_handle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="16" column="39" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="57">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myother/similar_crime.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="19" column="55" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/defines.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="722">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/path_define.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="18" column="50" selection-start-line="18" selection-start-column="50" selection-end-line="18" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/demo/full_rank.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3306">
@@ -511,7 +863,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="437">
           <caret line="23" column="21" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -519,7 +870,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="16" column="39" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -527,19 +877,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#14#45#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myother/search_files.py">
+    <entry file="file://$PROJECT_DIR$/myother/similar_crime.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
           <caret line="19" column="55" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
-          <folding>
-            <element signature="e#16#29#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -547,7 +891,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="722">
           <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -555,69 +898,211 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
           <caret line="18" column="50" selection-start-line="18" selection-start-column="50" selection-end-line="18" selection-end-column="50" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/defines.py">
+    <entry file="file://$PROJECT_DIR$/demo/unit_test.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="722">
-          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="513">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/path_define.py">
+    <entry file="file://E:/公司项目/itrans15/itrans/Trunk/Development/Source/include/utils/sp/nlp/text.hpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="18" column="50" selection-start-line="18" selection-start-column="50" selection-end-line="18" selection-end-column="50" />
-          <folding />
+        <state relative-caret-position="-266">
+          <caret line="13" column="19" selection-start-line="13" selection-start-column="19" selection-end-line="13" selection-end-column="19" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myother/search_files.py">
+    <entry file="file://$PROJECT_DIR$/../leian-demo/law/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="55" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
-          <folding>
-            <element signature="e#16#29#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="114">
+          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/common/result_handle.py">
+    <entry file="file:////172.16.3.237/bxwang2home/demo/demo_new_tmp/law/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="10" column="9" selection-start-line="10" selection-start-column="9" selection-end-line="10" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:////172.16.3.237/bxwang2home/demo/demo_new_tmp/law/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
-          <caret line="16" column="39" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="39" />
+          <caret line="23" column="48" selection-start-line="23" selection-start-column="48" selection-end-line="23" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myjudgrst/search_files.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="25" column="67" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:////172.16.3.237/bxwang2home/demo/demo_new_tmp/law/SearchFiles.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="371">
+          <caret line="57" column="39" selection-start-line="57" selection-start-column="39" selection-end-line="57" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mylucene/search_files.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="665">
+          <caret line="43" column="24" selection-start-line="43" selection-start-column="15" selection-end-line="43" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../leian-demo/law/retrieval/nearby_court.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="15" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../leian-demo/law/retrieval/rank.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="26" column="10" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../leian-demo/law/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../leian-demo/law/retrieval/SearchFiles.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="36" column="23" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myother/similar_crime.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="8" column="36" selection-start-line="8" selection-start-column="36" selection-end-line="8" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myother/nearby_court.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="82" column="24" selection-start-line="82" selection-start-column="24" selection-end-line="82" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/metric.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="12" selection-start-line="6" selection-start-column="4" selection-end-line="6" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myelem/patterns.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1273">
+          <caret line="67" column="23" selection-start-line="67" selection-start-column="23" selection-end-line="67" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/xls_parser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1045">
+          <caret line="56" column="23" selection-start-line="56" selection-start-column="23" selection-end-line="56" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/defines.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="21" column="25" selection-start-line="21" selection-start-column="25" selection-end-line="21" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/temp_test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <element signature="e#14#45#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="190">
+          <caret line="15" column="63" selection-start-line="15" selection-start-column="63" selection-end-line="15" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/result_handle.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="41" column="21" selection-start-line="41" selection-start-column="12" selection-end-line="41" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/const_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="13" column="58" selection-start-line="13" selection-start-column="58" selection-end-line="13" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/myelem/search_files.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="178" column="73" selection-start-line="178" selection-start-column="73" selection-end-line="178" selection-end-column="73" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/demo/full_rank.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        <state relative-caret-position="2280">
+          <caret line="128" column="57" selection-start-line="126" selection-start-column="8" selection-end-line="128" selection-end-column="57" />
           <folding>
             <element signature="e#16#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myelem/search_files.py">
+    <entry file="file://$PROJECT_DIR$/common/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="162" column="28" selection-start-line="162" selection-start-column="22" selection-end-line="162" selection-end-column="28" />
+        <state relative-caret-position="1026">
+          <caret line="56" column="44" selection-start-line="56" selection-start-column="44" selection-end-line="56" selection-end-column="44" />
+          <folding>
+            <element signature="e#16#48#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/path_define.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="59" selection-start-line="15" selection-start-column="29" selection-end-line="15" selection-end-column="59" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/calc_measure.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="446">
+          <caret line="83" column="39" selection-start-line="83" selection-start-column="39" selection-end-line="83" selection-end-column="39" />
+          <folding>
+            <element signature="e#42#56#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
