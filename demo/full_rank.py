@@ -2,11 +2,12 @@
 
 import pickle, os, sys
 from common import path_define, utils, defines, result_handle
+from common.result_handle import ResultHandler
 from mylucene.search_files import lucene_rank
 from mylda.search_files import lda_rank
-from myelem.search_files import elem_rank
+from myelem.search_files import ElemRank
 from myjudgrst.search_files import judge_rank
-from myother.search_files import similar_class_crime
+from myother.similar_crime import similar_class_crime
 import numpy as np
 
 class full_rank:
@@ -16,9 +17,10 @@ class full_rank:
                                                  path_define.MAP_NAME2JSON)
         self.luc_inst = lucene_rank()
         self.lda_inst = lda_rank(path_define.LDA_MODEL_STR)
-        self.elem_inst = elem_rank()
+        self.elem_inst = ElemRank()
         self.judg_inst = judge_rank(self.dict_name2json)
-        self.sim_inst = similar_class_crime()
+        #self.sim_inst = similar_class_crime()
+        self.result_handler = ResultHandler()
 
 
     def data_prepare(self, case_name):
@@ -56,7 +58,7 @@ class full_rank:
         #crime_index = 8
 
         # get lucene result
-        top_n = 5000
+        top_n = 1000
         cur_case_luc_cand_path = path_define.CASE_LUC_CAND_PATH_FMT % (case_name, top_n)
         luc_cand = utils.load_or_calc(cur_case_luc_cand_path, self.luc_inst.search_as_dict, case_desc, top_n)
         if case_name in luc_cand:
@@ -66,38 +68,50 @@ class full_rank:
         utils.debug_log("lucene cand: ", luc_cand)
 
         # get lda result
-        top_n = 5000
-        cur_case_lda_cand_path = path_define.CASE_LDA_CAND_PATH_FMT % (case_name, top_n)
-        lda_cand = utils.load_or_calc(cur_case_lda_cand_path, self.lda_inst.search_as_dict, case_desc, top_n)
-        if case_name in lda_cand:
-            lda_cand.pop(case_name)
-        utils.normalize_score(lda_cand, False)
-        utils.debug_log("lda search done!")
-        utils.debug_log("lda cand: ", lda_cand)
+        lda_cand = {}
+        if defines.FLAG_LDA:
+            top_n = 1000
+            cur_case_lda_cand_path = path_define.CASE_LDA_CAND_PATH_FMT % (case_name, top_n)
+            lda_cand = utils.load_or_calc(cur_case_lda_cand_path, self.lda_inst.search_as_dict, case_desc, top_n)
+            if case_name in lda_cand:
+                lda_cand.pop(case_name)
+            utils.normalize_score(lda_cand, False)
+            utils.debug_log("lda search done!")
+            utils.debug_log("lda cand: ", lda_cand)
 
         # get random_of_similar_crime, tpye is list
-        sim_cand = self.sim_inst.random_get_similar_cases(crime_index, 5000)
+        #sim_cand = self.sim_inst.random_get_similar_cases(crime_index, 5000)
 
         # union of lucene + lda + random_of_similar_crime
-        uni_list = list(set(luc_cand.keys()).union(set(lda_cand.keys())).union(set(sim_cand)))
+        uni_list = list(set(luc_cand.keys()).union(set(lda_cand.keys())))   # Lucene U LDA
+        #uni_list = list(set(luc_cand.keys()).union(set(lda_cand.keys())).union(set(sim_cand)))
         utils.debug_log("lucene + lda union size = ", len(uni_list))
 
         # 对于基本候选集进行附加操作
         self.accessory_process(uni_list, crime_index)
 
         # calc element result
-        cur_case_elem_cand_path = path_define.CASE_ELEM_CAND_PATH_FMT % (case_name, len(uni_list))
-        elem_cand = utils.load_or_calc(cur_case_elem_cand_path, self.elem_inst.search_as_dict,
-                                       case_name, crime_index, uni_list)
-        utils.normalize_score(elem_cand, True)
+        elem_cand = {}
+        if defines.FLAG_ELEM:
+            cur_case_elem_cand_path = path_define.CASE_ELEM_CAND_PATH_FMT % (case_name, len(uni_list))
+            elem_cand = utils.load_or_calc(cur_case_elem_cand_path, self.elem_inst.search_as_dict,
+                                           case_name, crime_index, uni_list)
+            # utils.normalize_score(elem_cand, True)    # 本来就在[0,1]，不需要另外做归一化
 
         # calc judge result similarity
-        cur_case_judg_cand_path = path_define.CASE_JUDG_CAND_PATH_FMT % (case_name, len(uni_list))
-        judg_cand = utils.load_or_calc(cur_case_judg_cand_path, self.judg_inst.search_as_dict,
-                                       case_name, uni_list)
+        judg_cand = {}
+        if defines.FLAG_JUDG:
+            cur_case_judg_cand_path = path_define.CASE_JUDG_CAND_PATH_FMT % (case_name, len(uni_list))
+            judg_cand = utils.load_or_calc(cur_case_judg_cand_path, self.judg_inst.search_as_dict,
+                                           case_name, uni_list)
+
+        # calc court revelence
+        # cur_case_court_cand_path = path_define.CASE_JUDG_CAND_PATH_FMT % (case_name, len(uni_list))
+        # court_cand = utils.load_or_calc(cur_case_court_cand_path, self.judg_inst.search_as_dict,
+        #                                case_name, uni_list)
 
         # 加权求和
-        feature_weight = [0.1, 0.1, 0.4, 0.4]
+        feature_weight = [defines.LUCENE_RATE, defines.LDA_RATE, defines.ELEM_RATE, defines.JUDG_RATE]
         score_sum_list = self.weighted_sum(luc_cand, lda_cand, elem_cand, judg_cand,
                                            full_name_list=uni_list, weights_list=feature_weight)
         rank_pairs = self.sort_score(uni_list, score_sum_list)
@@ -105,9 +119,9 @@ class full_rank:
 
         # # 附加操作
         # 1.统计来源
-        result_handle.analyze_luc_vs_lda(luc_cand, lda_cand, rank_pairs)
+        #self.result_handler.analyze_luc_vs_lda(luc_cand, lda_cand, rank_pairs)
         # 2.生成人工评级的文本
-        result_handle.save_for_human_rating(case_name, rank_pairs, 30)
+        self.result_handler.save_for_human_rating(case_name, rank_pairs, 30)
 
         # 保存结果，文件名及得分
         general_result_path = path_define.CASE_GENERAL_CAND_PATH_FMT % (case_name, len(uni_list),
@@ -115,10 +129,9 @@ class full_rank:
         utils.dump_pyobj(rank_pairs, general_result_path)
         save_final_path = path_define.CASE_GENERAL_CAND_LIST_PATH_FMT % (case_name, len(uni_list),
                                                                          '_'.join(map(str, feature_weight)))
-        result_handle.save_rst_list(rank_pairs, save_final_path)
+        self.result_handler.save_rst_list(rank_pairs, save_final_path)
         # self.save_rst(general_result_path)
-        print rank_pairs[:10]
-
+        self.result_handler.measure_with_testcase(case_name, rank_pairs)
 
     def weighted_sum(self, *arg, **kwargs):
         """
@@ -134,13 +147,14 @@ class full_rank:
         # 行为doc， 列为特征
         cand_len = len(full_name_list)
         cand_cnt = len(arg)
-        score_matrix = np.empty((cand_len, cand_cnt), np.float)
+        score_matrix = np.zeros((cand_len, cand_cnt), np.float)
         utils.debug_log("score_matrix shape is ", score_matrix.shape)
         # 因为可能存在有的排序方法对应的文档不在top，则以该方面的最低分计算
         j = 0
         while j < cand_cnt:
-            min_value = min(arg[j].values())
-            score_matrix[:, j] = min_value
+            if len(arg[j]) > 0:
+                min_value = min(arg[j].values())
+                score_matrix[:, j] = min_value
             j += 1
         i = 0
         while i < cand_len:
@@ -161,7 +175,7 @@ class full_rank:
         return zip(name_list[dec_index], score_list[dec_index])
 
     def save_rst(self, rst_pkl):
-        result_handle.save_rst_report(rst_pkl, self.dict_name2json)
+        self.result_handler.save_rst_report(rst_pkl, self.dict_name2json)
 
     def accessory_process(self, cand_list, crime_index = -1):
         '''

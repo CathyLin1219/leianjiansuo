@@ -4,8 +4,8 @@ from full_rank import full_rank
 from common import path_define, utils, defines
 from mylucene.search_files import lucene_rank
 from mylda.search_files import lda_rank
-from myelem.search_files import elem_rank
-from myother.search_files import similar_class_crime
+from myelem.search_files import ElemRank
+from myother.similar_crime import similar_class_crime
 
 def main():
     global_inst = full_rank()
@@ -35,7 +35,7 @@ def test_lda(case_name, case_desc):
     lda_cand = utils.load_or_calc(cur_case_lda_cand_path, lda_inst.search_as_dict, case_desc)
 
 def test_elem(case_name):
-    inst = elem_rank()
+    inst = ElemRank()
     cand_list = ['criminalname9_1527038.txt', 'criminalname9_1494452.txt', 'criminalname9_1420298.txt', 'criminalname9_1556432.txt']
     inst.search_as_dict(case_name, 8, cand_list)
 
