@@ -15,11 +15,12 @@ def get_hm_rating_xls(xls_path):
     :return: query_filename, [lable1, lable2, ...]
     '''
     # 打开excel
+    #print xls_path
     data = xlrd.open_workbook(xls_path)
     # 得到第一个工作表，或者通过索引顺序 或 工作表名称
     table = data.sheets()[0]
     # 获取第二列的值（数组），评价等级在第二列
-    rating_file = table.cell(1, 0).value
+    rating_file = table.cell(1, 0).value.strip()
     b_col = table.col_values(1)
     hm_ratings = []
     for i in range(1, len(b_col)):
@@ -39,7 +40,7 @@ def get_qdls(xls_path):
     data = xlrd.open_workbook(xls_path)
     # 得到第一个工作表，或者通过索引顺序 或 工作表名称
     table = data.sheets()[0]
-    rating_file = table.cell(1, 0).value
+    rating_file = table.cell(1, 0).value.strip()
     # 组成A-B列的 <文件名：等级> 键值对
     a_col = table.col_values(0)
     b_col = table.col_values(1)

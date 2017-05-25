@@ -4,7 +4,7 @@
 import sys, os
 import numpy as np
 from common import const_data, metric, xls_parser, utils, path_define
-import re
+import re, json
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -31,16 +31,38 @@ def get_fabao_rank():
 
 def get_my_rank(dir):
     xls_list = os.listdir(dir)
-    rank_dict = {}
+    case_dict = {}
+    avg_dcg10 = 0
+    avg_dcg5 = 0
+    avg_dcg3 = 0
+    avg_dcg1 = 0
     for doc in xls_list:
         path = os.path.join(dir,doc)
         rating_file, cur_rating = xls_parser.get_hm_rating_xls(path)
-        cur_rating = np.array(cur_rating) - 1
-        rank_dict[rating_file] = [metric.dcg_at_k(cur_rating, 10), metric.get_ndcg(cur_rating, 10),
-                                  metric.dcg_at_k(cur_rating, 5), metric.get_ndcg(cur_rating, 5),
-                                  metric.dcg_at_k(cur_rating, 3), metric.get_ndcg(cur_rating, 3),
-                                  metric.dcg_at_k(cur_rating, 1), metric.get_ndcg(cur_rating, 1), ]
-    print rank_dict
+        cur_rating = np.array(cur_rating[:20]) - 1
+        #print rating_file, cur_rating.shape
+        dcg10 = metric.dcg_at_k(cur_rating, 10)
+        dcg5 = metric.dcg_at_k(cur_rating, 5)
+        dcg3 = metric.dcg_at_k(cur_rating, 3)
+        dcg1 = metric.dcg_at_k(cur_rating, 1)
+        case_dict[rating_file] = {}
+        case_dict[rating_file]['dcg10'] = dcg10 #metric.get_ndcg(cur_rating, 10),
+        case_dict[rating_file]['dcg5'] = dcg5  #metric.get_ndcg(cur_rating, 5),
+        case_dict[rating_file]['dcg3'] = dcg3 #metric.get_ndcg(cur_rating, 3),
+        case_dict[rating_file]['dcg1'] = dcg1 #metric.get_ndcg(cur_rating, 1),
+        avg_dcg10 += dcg10
+        avg_dcg5 += dcg5
+        avg_dcg3 += dcg3
+        avg_dcg1 += dcg1
+
+    rst_dict = {}
+    if len(xls_list) > 0:
+        rst_dict['avg_dcg10'] = avg_dcg10 / len(xls_list)
+        rst_dict['avg_dcg5'] = avg_dcg5 / len(xls_list)
+        rst_dict['avg_dcg3'] = avg_dcg3 / len(xls_list)
+        rst_dict['avg_dcg1'] = avg_dcg1 / len(xls_list)
+        rst_dict['all_cases'] = case_dict
+    return rst_dict
 
 def statistic_para(name_list, para_name, dict_name2json):
     '''
@@ -90,7 +112,65 @@ def similar_case_diff_rst():
             print "money of %s (mean, var) are %f, %f" % ( case_name, mean, var )
 
 
+def cmp_sys_rst(case_dict1, case_dict2):
+    '''
+    比较两个方法得到的相同query的打分结果
+    :param case_dict1:
+    :param case_dict2:
+    :return:
+    '''
+    total_cnt = 0
+    grater_cnt = 0
+    dcg10_grater_cnt = 0
+    dcg5_grater_cnt = 0
+    dcg3_grater_cnt = 0
+    dcg1_grater_cnt = 0
+    for key_case in case_dict1:
+        if key_case in case_dict2:
+            total_cnt += 1
+            case1_score = case_dict1[key_case]['dcg10'] + case_dict1[key_case]['dcg5'] + case_dict1[key_case]['dcg3'] + case_dict1[key_case]['dcg1']
+            case2_score = case_dict2[key_case]['dcg10'] + case_dict2[key_case]['dcg5'] + case_dict2[key_case]['dcg3'] + case_dict2[key_case]['dcg1']
+            #print key_case,'\t', case1_score, '\t',case2_score
+            if case1_score > case2_score:
+                 grater_cnt += 1
+            if case_dict1[key_case]['dcg10'] > case_dict2[key_case]['dcg10']:
+                dcg10_grater_cnt += 1
+            if case_dict1[key_case]['dcg5'] > case_dict2[key_case]['dcg5']:
+                dcg5_grater_cnt += 1
+            if case_dict1[key_case]['dcg3'] > case_dict2[key_case]['dcg3']:
+                dcg3_grater_cnt += 1
+            if case_dict1[key_case]['dcg1'] > case_dict2[key_case]['dcg1']:
+                dcg1_grater_cnt += 1
+    if total_cnt <= 0:
+        print 'two system result have no same cases'
+        return -1
+    return float(grater_cnt) / total_cnt, \
+           float(dcg10_grater_cnt) / total_cnt, \
+           float(dcg5_grater_cnt) / total_cnt,\
+           float(dcg3_grater_cnt) / total_cnt,\
+           float(dcg1_grater_cnt) / total_cnt
+
+
+# 命令行参数：保存文件名
 if __name__ == '__main__':
-    #get_my_rank("../data/testcases_1221_0216/theft/")
-    similar_case_diff_rst()
+    full_rank_dir = 'testcases_lucene_lda_elem_orirst_1221_theft' #'testcases_lucene_elem_0306_theft' #'testcases_lucene_only_0306-theft' #
+    full_rst = get_my_rank("data/%s/" % full_rank_dir)
+    file = open('data/%s.json' % full_rank_dir, 'w')
+    file.write(json.dumps(full_rst, ensure_ascii=False))
+    file.close()
+    lucene_elem_rank_dir = 'testcases_lucene_elem_0306_theft' #'testcases_lucene_only_0306-theft' #
+    le_rst = get_my_rank("data/%s/" % lucene_elem_rank_dir)
+    file = open('data/%s.json' % lucene_elem_rank_dir, 'w')
+    file.write(json.dumps(le_rst, ensure_ascii=False))
+    file.close()
+    lucene_rank_dir = 'testcases_lucene_only_0306-theft' #
+    lo_rst = get_my_rank("data/%s/" % lucene_rank_dir)
+    file = open('data/%s.json' % lucene_rank_dir, 'w')
+    file.write(json.dumps(lo_rst, ensure_ascii=False))
+    file.close()
+    print 'full > lucene+elem percent:', cmp_sys_rst(full_rst['all_cases'], le_rst['all_cases'])
+    print 'lucene+elem > lucene percent:', cmp_sys_rst(le_rst['all_cases'], lo_rst['all_cases'])
+    print 'full > lucene percent:', cmp_sys_rst(full_rst['all_cases'], lo_rst['all_cases'])
+
+    #similar_case_diff_rst()
 
