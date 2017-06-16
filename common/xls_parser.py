@@ -46,7 +46,7 @@ def get_qdls(xls_path):
     b_col = table.col_values(1)
     hm_ratings = {}
     for i in range(1, len(b_col)):
-        if type(b_col[i]) == type(1.0):
+        if type(b_col[i]) == type(1.0) and int(b_col[i]) != 0:
             hm_ratings[str(a_col[i])] = int(b_col[i])
     return rating_file, hm_ratings
 
@@ -57,10 +57,20 @@ def get_testcase_lables(dir):
     :param dir:
     :return: {query1:{doc1: lable1, doc2: lable2, ...}, query2: {doc1: lable1, ...}, ...}
     '''
-    xls_list = os.listdir(dir)
+    xls_list = get_file_recursion(dir)
     testcase_dict = {}
     for doc in xls_list:
-        path = os.path.join(dir, doc)
-        rating_file, cur_rating = get_qdls(path)
+        rating_file, cur_rating = get_qdls(doc)
         testcase_dict[rating_file] = cur_rating
     return testcase_dict
+
+def get_file_recursion(dir):
+    files_list = []
+    paths_list = os.listdir(dir)
+    for item in paths_list:
+        abs_path = os.path.join(dir, item)
+        if os.path.isdir(abs_path):
+            files_list.extend(get_file_recursion(abs_path))
+        elif abs_path.endswith(".xls"):
+            files_list.append(abs_path)
+    return files_list

@@ -176,6 +176,13 @@ class elem_analyzer:
 
 
 class ElemRank:
+    check_bin_elem_list = ['surrender', 'age_group', 'reconciliation', 'attempt', 'meritorious',
+                           'repetitious_theft', 'restitution', 'burglary', 'pickpocket', 'money_group']
+    check_value_elem_list = ['amount_of_theft']
+    bin_elem_weight = [6, 5, 5, 30, 6,
+                       5, 5, 5, 5, 15]
+    value_elem_weight = [15]
+
     def search_as_dict(self, query_filename, crime_index, cmp_file_list):
         ana_inst = elem_analyzer(crime_index)
         f = open(path_define.CRIMINAL_DIR + query_filename)
@@ -201,4 +208,57 @@ class ElemRank:
             rst_dict[file_name] = grade
         return rst_dict
 
+    def search_as_dict_0526(self, case_name, uni_list, cand_elem):
+        rst_dict = {}
+        if case_name in cand_elem:
+            elements = cand_elem[case_name]
+        else:
+            return rst_dict
+        for i, doc_name in enumerate(uni_list):
+            rst_dict[doc_name], _ = self.cmp_elem(elements, cand_elem[doc_name])
+        return rst_dict
+
+    def cmp_elem(self, query, document):
+        grade = 0.0
+        total = 0.0
+        relevant_element = []
+        for j in range(0, len(ElemRank.check_bin_elem_list)):
+            key = ElemRank.check_bin_elem_list[j]
+            if key in query and key in document:
+                query_value = query[key]
+                document_value = document[key]
+                # if isinstance(query_value, bool):
+                #     document_value = int(document_value) > 0
+                # else:
+                #     document_value = document_value.encode("utf8")
+                try:
+                    query_value = int(query_value)
+                    document_value = int(document_value)
+                except:
+                    query_value = query_value.encode("utf8")
+                    document_value = document_value.encode("utf8")
+                if query_value or document_value:
+                    total += ElemRank.bin_elem_weight[j]
+                    if type(query_value) != type(document_value):
+                        print "Element %s: query_elem's type and document_elem'type is not same!" % key
+                        print "query_elem's type is",type(query_value), "but document_elem'type", type(document_value)
+                    elif query_value == document_value:
+                        grade += ElemRank.bin_elem_weight[j]
+                        relevant_element.append(key)
+                    #print "query_elem is", query_value, ",document_elem is", document_value
+                else:
+                    #print "query_elem is", query_value, ",document_elem is", document_value
+                    pass
+        for k in range(0, len(ElemRank.check_value_elem_list)):
+            key = ElemRank.check_value_elem_list[k]
+            if key in query and key in document:
+                total += ElemRank.value_elem_weight[k]
+                if (isinstance(query[key], int) or isinstance(query[key], float)) and query[key] != 0:
+                    query_value = query[key]
+                    document_value = float(document[key])
+                    grade += abs(query_value - document_value)/(query_value + document_value) * ElemRank.value_elem_weight[k]
+                    relevant_element.append(key)
+        if total != 0:
+            grade = grade / total
+        return grade, relevant_element
 

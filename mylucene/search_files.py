@@ -73,7 +73,23 @@ class lucene_rank:
         """
         scoreDocs = self.do_search(query_text, top_n)
         rst_dict = {}
+        rst_elems = {}
         for scoreDoc in scoreDocs:
             doc = self.searcher.doc(scoreDoc.doc)
             rst_dict[doc.get("file_name")] = scoreDoc.score
-        return rst_dict
+            # 以下要素 --20170526
+            rst_doc = {}
+            rst_doc['surrender'] = doc.get("surrender")
+            rst_doc['age_group'] = doc.get("age_group")
+            rst_doc['reconciliation'] = doc.get("reconciliation")
+            rst_doc['attempt'] = doc.get("attempt")
+            rst_doc['meritorious'] = doc.get("meritorious")
+            rst_doc['repetitious_theft'] = doc.get("repetitious_theft")
+            rst_doc['restitution'] = doc.get("restitution")
+            rst_doc['burglary'] = doc.get("burglary")
+            rst_doc['pickpocket'] = doc.get("pickpocket")
+            rst_doc['money_group'] = doc.get("money_group")
+            rst_doc['amount_of_theft'] = doc.get("amount_of_theft")
+
+            rst_elems[doc.get("file_name")] = rst_doc
+        return rst_dict, rst_elems

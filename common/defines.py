@@ -1,11 +1,11 @@
 # coding=UTF-8
 DEBUG = False
 FLAG_LDA = False
-FLAG_ELEM = False
+FLAG_ELEM = True
 FLAG_JUDG = False
-LUCENE_RATE = 1
+LUCENE_RATE = 0.5
 LDA_RATE = 0.0
-ELEM_RATE = 0.0
+ELEM_RATE = 0.5
 JUDG_RATE = 0.0
 
 

@@ -38,6 +38,7 @@ def get_my_rank(dir):
     avg_dcg1 = 0
     for doc in xls_list:
         path = os.path.join(dir,doc)
+        #print path
         rating_file, cur_rating = xls_parser.get_hm_rating_xls(path)
         cur_rating = np.array(cur_rating[:20]) - 1
         #print rating_file, cur_rating.shape
@@ -150,27 +151,27 @@ def cmp_sys_rst(case_dict1, case_dict2):
            float(dcg3_grater_cnt) / total_cnt,\
            float(dcg1_grater_cnt) / total_cnt
 
+def load_dir_rank_save(dir):
+    rank_rst = get_my_rank("data/testcases/%s/" % dir)
+    file = open('data/testcases/%s.json' % dir, 'w')
+    file.write(json.dumps(rank_rst, ensure_ascii=False))
+    file.close()
+    return rank_rst
+
 
 # 命令行参数：保存文件名
 if __name__ == '__main__':
-    full_rank_dir = 'testcases_lucene_lda_elem_orirst_1221_theft' #'testcases_lucene_elem_0306_theft' #'testcases_lucene_only_0306-theft' #
-    full_rst = get_my_rank("data/%s/" % full_rank_dir)
-    file = open('data/%s.json' % full_rank_dir, 'w')
-    file.write(json.dumps(full_rst, ensure_ascii=False))
-    file.close()
-    lucene_elem_rank_dir = 'testcases_lucene_elem_0306_theft' #'testcases_lucene_only_0306-theft' #
-    le_rst = get_my_rank("data/%s/" % lucene_elem_rank_dir)
-    file = open('data/%s.json' % lucene_elem_rank_dir, 'w')
-    file.write(json.dumps(le_rst, ensure_ascii=False))
-    file.close()
-    lucene_rank_dir = 'testcases_lucene_only_0306-theft' #
-    lo_rst = get_my_rank("data/%s/" % lucene_rank_dir)
-    file = open('data/%s.json' % lucene_rank_dir, 'w')
-    file.write(json.dumps(lo_rst, ensure_ascii=False))
-    file.close()
-    print 'full > lucene+elem percent:', cmp_sys_rst(full_rst['all_cases'], le_rst['all_cases'])
-    print 'lucene+elem > lucene percent:', cmp_sys_rst(le_rst['all_cases'], lo_rst['all_cases'])
-    print 'full > lucene percent:', cmp_sys_rst(full_rst['all_cases'], lo_rst['all_cases'])
-
+    le_new_dir = 'testcases_lucene_elem_0609_theft'
+    le_new_rst = load_dir_rank_save(le_new_dir)
+    # full_rank_dir = 'testcases_lucene_lda_elem_orirst_1221_theft'
+    # full_rst = load_dir_rank_save(full_rank_dir)
+    lucene_elem_rank_dir = 'testcases_lucene_elem_0526_theft'
+    le_rst = load_dir_rank_save(lucene_elem_rank_dir)
+    # lucene_rank_dir = 'testcases_lucene_only_0306-theft'
+    # lo_rst = load_dir_rank_save(lucene_rank_dir)
+    # print 'full > lucene+elem percent:', cmp_sys_rst(full_rst['all_cases'], le_rst['all_cases'])
+    # print 'lucene+elem > lucene percent:', cmp_sys_rst(le_rst['all_cases'], lo_rst['all_cases'])
+    # print 'full > lucene percent:', cmp_sys_rst(full_rst['all_cases'], lo_rst['all_cases'])
+    print 'new lucene+elem > lucene+elem:', cmp_sys_rst(le_new_rst['all_cases'], le_rst['all_cases'])
     #similar_case_diff_rst()
 

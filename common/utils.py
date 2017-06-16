@@ -44,7 +44,7 @@ def gen_name2json_dict(json_file_path):
 
 def normalize_score(name_score_dict, prop=True):
     """
-    归一化，最好的为100
+    归一化，0-1
     :param name_score_dict: 文件名与的分的词典
     :param prop: true 正比， false 反比
     :return: 归一化后的得分字典
