@@ -161,7 +161,7 @@ def load_dir_rank_save(dir):
 
 # 命令行参数：保存文件名
 if __name__ == '__main__':
-    le_new_dir = 'testcases_lucene_elem_0609_theft'
+    le_new_dir = 'testcases_lucene_lda_elem_0623-theft'
     le_new_rst = load_dir_rank_save(le_new_dir)
     # full_rank_dir = 'testcases_lucene_lda_elem_orirst_1221_theft'
     # full_rst = load_dir_rank_save(full_rank_dir)
@@ -173,5 +173,6 @@ if __name__ == '__main__':
     # print 'lucene+elem > lucene percent:', cmp_sys_rst(le_rst['all_cases'], lo_rst['all_cases'])
     # print 'full > lucene percent:', cmp_sys_rst(full_rst['all_cases'], lo_rst['all_cases'])
     print 'new lucene+elem > lucene+elem:', cmp_sys_rst(le_new_rst['all_cases'], le_rst['all_cases'])
+    print 'new lucene+elem < lucene+elem:', cmp_sys_rst(le_rst['all_cases'], le_new_rst['all_cases'])
     #similar_case_diff_rst()
 

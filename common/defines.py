@@ -1,11 +1,11 @@
 # coding=UTF-8
 DEBUG = False
-FLAG_LDA = False
+FLAG_LDA = True
 FLAG_ELEM = True
 FLAG_JUDG = False
-LUCENE_RATE = 0.5
-LDA_RATE = 0.0
-ELEM_RATE = 0.5
+LUCENE_RATE = 0.3
+LDA_RATE = 0.3
+ELEM_RATE = 0.4
 JUDG_RATE = 0.0
 
 
@@ -33,6 +33,8 @@ def enum_crime_name(name):
         return 8
     elif name == u'寻衅滋事':
         return 9
+    else:
+        return -1
 
 
 confused_crime = {0: [1],

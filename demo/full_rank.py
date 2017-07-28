@@ -1,6 +1,6 @@
 # coding=UTF-8
 
-import pickle, os, sys
+import pickle, os, sys, json
 from common import path_define, utils, defines, result_handle, statistic
 from common.result_handle import ResultHandler
 from mylucene.search_files import lucene_rank
@@ -9,32 +9,26 @@ from myelem.search_files import ElemRank
 from myjudgrst.search_files import judge_rank
 from myother.similar_crime import similar_class_crime
 import numpy as np
+from extract_elements.extract import ExtractElements
 
 class full_rank:
     def __init__(self):
-        name2json_dict_pkl = path_define.MAP_NAME2JSON + '.pkl'
-        self.dict_name2json = utils.load_or_calc(name2json_dict_pkl, utils.gen_name2json_dict,\
-                                                 path_define.MAP_NAME2JSON)
         self.luc_inst = lucene_rank()
         self.lda_inst = lda_rank(path_define.LDA_MODEL_STR)
         self.elem_inst = ElemRank()
-        self.judg_inst = judge_rank(self.dict_name2json)
-        #self.sim_inst = similar_class_crime()
+        # self.judg_inst = judge_rank(self.dict_name2json)
         self.result_handler = ResultHandler()
-
-
-    def data_prepare(self, case_name):
-        # 一个案件的数据准备：name, desc, crime_index
-        case_desc = self.dict_name2json[case_name]["description"].encode("utf8")
-        crime_name = self.dict_name2json[case_name]["criminal_name"]
-        crime_index = defines.enum_crime_name(crime_name)
-        return case_desc, crime_index
+        self.extractor_inst = ExtractElements()
 
 
     def general_rank(self, case_name):
         print "Search of %s begin>>>>>>" % case_name
-        # 原程序
-        case_desc, crime_index = self.data_prepare(case_name)
+        # case_desc, crime_index = self.data_prepare(case_name)
+        case_json = self.extractor_inst.process(path_define.CRIMINAL_DIR + case_name)
+        case_obj = json.loads(case_json)
+        case_desc = case_obj["description"]
+        crime_name = case_obj["criminal_name"]
+        crime_index = defines.enum_crime_name(crime_name)
         utils.debug_log("query description:%s" % case_desc, "criminal index is %d" % crime_index)
 
         # get lucene result
@@ -58,7 +52,7 @@ class full_rank:
             utils.debug_log("lda search done!")
             utils.debug_log("lda cand: ", lda_cand)
 
-        # union of lucene + lda + random_of_similar_crime
+        # union of lucene + lda
         uni_list = list(set(luc_cand.keys()).union(set(lda_cand.keys())))   # Lucene U LDA
         utils.debug_log("lucene + lda union size = ", len(uni_list))
 
@@ -66,15 +60,10 @@ class full_rank:
         # self.accessory_process(uni_list, crime_index)
 
         # calc element result
-        elem_cand = {}
+        # elem_cand = {}
         elem_cand_0526 = {}
         if defines.FLAG_ELEM:
-            elem_cand = self.elem_inst.search_as_dict(case_name, crime_index, uni_list)
             elem_cand_0526 = self.elem_inst.search_as_dict_0526(case_name, uni_list, cand_elem)
-            # cur_case_elem_cand_path = path_define.CASE_ELEM_CAND_PATH_FMT % (case_name, len(uni_list))
-            # elem_cand = utils.load_or_calc(cur_case_elem_cand_path, self.elem_inst.search_as_dict,
-            #                                case_name, crime_index, uni_list)
-            statistic.statistic_elem_rst(elem_cand, elem_cand_0526)
 
         # calc judge result similarity
         judg_cand = {}
